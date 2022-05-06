@@ -5,5 +5,8 @@ import org.springframework.stereotype.Repository;
 import spring.devoir.gestion_tickets.entities.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<Long, User> {
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findByUsername(String username);
+    User findByEmail(String email);
 }

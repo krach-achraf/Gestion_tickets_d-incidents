@@ -15,17 +15,14 @@ public class Ticket {
     @Lob
     private String description;
 
-    @Column(nullable = false)
-    private Urgence urgence;
-
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String envirenemment;
 
     @Column(nullable = false, length = 50)
     private String logiciel;
 
-    @Column(nullable = false)
     private Status status;
+    private Urgence urgence;
 
     @ManyToOne
     @JoinColumn(name = "developpeur_id")

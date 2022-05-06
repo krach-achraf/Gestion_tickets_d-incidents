@@ -30,7 +30,13 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String nom, String prenom, String username, String email, String password, Role role) {
+    public User(Long id,
+                String nom,
+                String prenom,
+                String username,
+                String email,
+                String password,
+                Role role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -40,7 +46,12 @@ public class User {
         this.role = role;
     }
 
-    public User(String nom, String prenom, String username, String email, String password, Role role) {
+    public User(String nom,
+                String prenom,
+                String username,
+                String email,
+                String password,
+                Role role) {
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;

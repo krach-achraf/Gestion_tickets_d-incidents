@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import spring.devoir.gestion_tickets.entities.Ticket;
 
 @Repository
-public interface TicketRepository extends JpaRepository<Long, Ticket> {
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
 }
