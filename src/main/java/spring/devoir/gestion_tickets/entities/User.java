@@ -1,6 +1,5 @@
 package spring.devoir.gestion_tickets.entities;
 
-import spring.devoir.gestion_tickets.entities.enumerations.Role;
 
 import javax.persistence.*;
 
@@ -25,7 +24,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private Role role;
+    @Column(nullable = false, length = 20)
+    private String role;
 
     public User() {
     }
@@ -36,7 +36,7 @@ public class User {
                 String username,
                 String email,
                 String password,
-                Role role) {
+                String role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -51,7 +51,7 @@ public class User {
                 String username,
                 String email,
                 String password,
-                Role role) {
+                String role) {
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
@@ -104,11 +104,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

@@ -1,8 +1,5 @@
 package spring.devoir.gestion_tickets.entities;
 
-import spring.devoir.gestion_tickets.entities.enumerations.Status;
-import spring.devoir.gestion_tickets.entities.enumerations.Urgence;
-
 import javax.persistence.*;
 
 @Entity
@@ -21,8 +18,11 @@ public class Ticket {
     @Column(nullable = false, length = 50)
     private String logiciel;
 
-    private Status status;
-    private Urgence urgence;
+    @Column(nullable = false, length = 30)
+    private String status;
+
+    @Column(nullable = false, length = 20)
+    private String urgence;
 
     @ManyToOne
     @JoinColumn(name = "developpeur_id")
@@ -37,10 +37,10 @@ public class Ticket {
 
     public Ticket(Long id,
                   String description,
-                  Urgence urgence,
+                  String urgence,
                   String envirenemment,
                   String logiciel,
-                  Status status,
+                  String status,
                   User developpeur,
                   User client) {
         this.id = id;
@@ -54,10 +54,10 @@ public class Ticket {
     }
 
     public Ticket(String description,
-                  Urgence urgence,
+                  String urgence,
                   String envirenemment,
                   String logiciel,
-                  Status status,
+                  String status,
                   User developpeur,
                   User client) {
         this.description = description;
@@ -81,11 +81,11 @@ public class Ticket {
         this.description = description;
     }
 
-    public Urgence getUrgence() {
+    public String getUrgence() {
         return urgence;
     }
 
-    public void setUrgence(Urgence urgence) {
+    public void setUrgence(String urgence) {
         this.urgence = urgence;
     }
 
@@ -105,11 +105,11 @@ public class Ticket {
         this.logiciel = logiciel;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
