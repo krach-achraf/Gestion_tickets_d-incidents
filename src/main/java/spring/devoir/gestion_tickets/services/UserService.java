@@ -27,4 +27,13 @@ public class UserService {
         else
             userRepository.save(user);
     }
+
+    public int login(User user) {
+        User u = findByEmail(user.getEmail());
+        if(u == null)
+            return -1;
+        if (!u.getPassword().equals(user.getPassword()))
+            return -2;
+        return 1;
+    }
 }
