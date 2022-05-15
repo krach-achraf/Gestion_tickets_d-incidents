@@ -15,8 +15,8 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping("/developpeurs")
-    public List<Ticket> findByDeveloppeurIsNotNull() {
-        return ticketService.findByDeveloppeurIsNotNull();
+    public List<Ticket> findByDeveloppeurIsNull() {
+        return ticketService.findByDeveloppeurIsNull();
     }
 
     @GetMapping("/developpeur/{id}")

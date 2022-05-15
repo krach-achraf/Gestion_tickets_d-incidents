@@ -128,4 +128,11 @@ public class Ticket {
     public void setClient(User client) {
         this.client = client;
     }
+
+    @Override
+    public String toString() {
+        return "description: " + description +
+                ", envirenemment: " + envirenemment +
+                ", logiciel: " + logiciel;
+    }
 }

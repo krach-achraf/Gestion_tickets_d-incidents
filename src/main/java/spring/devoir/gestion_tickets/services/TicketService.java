@@ -6,6 +6,7 @@ import spring.devoir.gestion_tickets.entities.Ticket;
 import spring.devoir.gestion_tickets.repositories.TicketRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -13,8 +14,12 @@ public class TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    public List<Ticket> findByDeveloppeurIsNotNull() {
-        return ticketRepository.findByDeveloppeurIsNotNull();
+    public Ticket getById(Long aLong) {
+        return ticketRepository.getById(aLong);
+    }
+
+    public List<Ticket> findByDeveloppeurIsNull() {
+        return ticketRepository.findByDeveloppeurIsNull();
     }
 
     public List<Ticket> findByDeveloppeur_Id(int id) {
