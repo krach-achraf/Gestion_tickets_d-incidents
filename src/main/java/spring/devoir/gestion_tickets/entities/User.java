@@ -24,9 +24,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 20)
-    private String role;
-
     public User() {
     }
 
@@ -35,29 +32,25 @@ public class User {
                 String prenom,
                 String username,
                 String email,
-                String password,
-                String role) {
+                String password) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
     public User(String nom,
                 String prenom,
                 String username,
                 String email,
-                String password,
-                String role) {
+                String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
     public Long getId() {
@@ -104,11 +97,4 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }
