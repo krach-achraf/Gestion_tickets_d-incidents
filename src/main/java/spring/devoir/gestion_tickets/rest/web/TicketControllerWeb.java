@@ -39,6 +39,12 @@ public class TicketControllerWeb {
         return "template/client/tickets-liste";
     }
 
+    @GetMapping("developpeur/tickets")
+    public String ticketsDev(Model model) {
+        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(4L));
+        return "template/dev/tickets-liste";
+    }
+
     @GetMapping("client/ticket/add")
     public String ticketsAdd(Model model) {
         model.addAttribute("ticket", new Ticket());
@@ -74,15 +80,12 @@ public class TicketControllerWeb {
         return "template/admin/tickets-liste";
     }
 
-    public List<Ticket> findByDeveloppeur_Id(Long id) {
-        return ticketService.findByDeveloppeur_Id(id);
-    }
-
-    public List<Ticket> findByClient_Id(Long id) {
-        return ticketService.findByClient_Id(id);
-    }
-
-    public void save(Ticket ticket) {
+    @GetMapping("developpeur/tickets/status/{id}")
+    public String changeStatus(@PathVariable long id, Model model){
+        Ticket ticket = ticketService.getById(id);
+        ticket.setStatus("resolu");
         ticketService.save(ticket);
+        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(4L));
+        return "template/dev/tickets-liste";
     }
 }

@@ -36,7 +36,8 @@
                     <td th:text="${t.status}"></td>
                     <td th:text="${t.urgence}"></td>
                     <td th:text="${t.client}"></td>
-                    <td><a th:href="@{/admin/tickets/affecter/{id} (id=${t.id})}" class="btn btn-primary">Affecter</a></td>
+                    <td th:if="${t.status} == 'en cours'"><a th:href="@{/developpeur/tickets/status/{id} (id=${t.id})}" class="btn btn-primary">Resolu</a></td>
+
                 </tr>
                 </tbody>
             </table>
