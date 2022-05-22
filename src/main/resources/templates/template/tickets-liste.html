@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layout/index}">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +13,7 @@
     <div class="card">
         <div class="card-header">
             Liste des tickets
+            <a th:href="@{/client/ticket/add}"  sec:authorize="hasAnyAuthority('CLIENT')" class="btn btn-outline-primary w-25" style="float: right">Ajouter</a>
         </div>
         <div class="card-body">
             <table class="table">
@@ -23,7 +25,8 @@
                     <th scope="col">Logiciel</th>
                     <th scope="col">Status</th>
                     <th scope="col">Urgence</th>
-                    <th scope="col">Client</th>
+                    <th scope="col">Developpeur</th>
+                    <th scope="col" sec:authorize="!hasAnyAuthority('CLIENT')">Client</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -35,8 +38,10 @@
                     <td th:text="${t.logiciel}"></td>
                     <td th:text="${t.status}"></td>
                     <td th:text="${t.urgence}"></td>
-                    <td th:text="${t.client}"></td>
-                    <td th:if="${t.status} == 'en cours'"><a th:href="@{/developpeur/tickets/status/{id} (id=${t.id})}" class="btn btn-primary">Resolu</a></td>
+                    <td th:text="${t.developpeur}" sec:authorize="!hasAnyAuthority('DEVELOPPEUR')"></td>
+                    <td th:text="${t.client}"  sec:authorize="!hasAnyAuthority('CLIENT')"></td>
+                    <td th:if="${t.status} == 'en cours'"  sec:authorize="hasAnyAuthority('DEVELOPPEUR')"><a th:href="@{/developpeur/tickets/status/{id} (id=${t.id})}" class="btn btn-primary">Resolu</a></td>
+                    <td><a th:href="@{/admin/tickets/affecter/{id} (id=${t.id})}" sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary">Affecter</a></td>
 
                 </tr>
                 </tbody>

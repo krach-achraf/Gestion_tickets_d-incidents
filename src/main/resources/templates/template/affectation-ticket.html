@@ -10,33 +10,23 @@
 <body>
 <main layout:fragment="contenu">
     <div class="card">
-        <div class="card-header">
-            Liste des tickets
-        </div>
+        <div class="card-header">Liste des developpeurs</div>
         <div class="card-body">
             <table class="table">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Envirennement</th>
-                    <th scope="col">Logiciel</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Urgence</th>
-                    <th scope="col">Client</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="t:${tickets}">
-                    <td th:text="${t.id}"></td>
-                    <td th:text="${t.description}"></td>
-                    <td th:text="${t.envirenemment}"></td>
-                    <td th:text="${t.logiciel}"></td>
-                    <td th:text="${t.status}"></td>
-                    <td th:text="${t.urgence}"></td>
-                    <td th:text="${t.client}"></td>
-                    <td><a th:href="@{/admin/tickets/affecter/{id} (id=${t.id})}" class="btn btn-primary">Affecter</a></td>
+                <tr th:each="u:${users}">
+                    <td th:text="${u.id}"></td>
+                    <td th:text="${u.nom}"></td>
+                    <td th:text="${u.prenom}"></td>
+                    <td><a th:href="@{/admin/tickets/choisir/{id}/{idT} (id=${u.id},idT=${ticket.id}) }" class="btn btn-primary">Choisir</a></td>
                 </tr>
                 </tbody>
             </table>

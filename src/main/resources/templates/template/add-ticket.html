@@ -3,7 +3,7 @@
       layout:decorate="~{layout/index}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tickets</title>
     <link th:href="@{/style/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{/style/style.css}" rel="stylesheet"/>
 </head>
@@ -14,10 +14,6 @@
         <div class="card-body row">
             <div class="col-3"></div>
             <form class="form-signin col-6" method="post" th:object="${ticket}"  th:action="@{/client/ticket/add}" >
-
-                <!-- <ul th:if="${#fields.hasErrors('*')}"  class="alert alert-danger" role="alert">
-                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-                 </ul>-->
 
                 <label for="inputDescription" class="sr-only">Description</label>
                 <input type="text" id="inputDescription" name="description"  class="form-control mb-3" placeholder="Description" required

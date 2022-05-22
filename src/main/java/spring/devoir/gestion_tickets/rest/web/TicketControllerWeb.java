@@ -2,6 +2,7 @@ package spring.devoir.gestion_tickets.rest.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import spring.devoir.gestion_tickets.entities.User;
 import spring.devoir.gestion_tickets.services.TicketService;
 import spring.devoir.gestion_tickets.services.UserServiceImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -25,33 +27,22 @@ public class TicketControllerWeb {
     private UserServiceImpl userService;
 
     @GetMapping
-    public String index(){
-        return "layout/index";
-    }
-
-    @GetMapping("admin/tickets")
-    public String ticketsAdmin(Model model) {
-        model.addAttribute("tickets", ticketService.findByDeveloppeurIsNull());
-        return "template/admin/tickets-liste";
-    }
-
-    @GetMapping("client/tickets")
-    public String ticketsClient(Model model) {
-        model.addAttribute("tickets", ticketService.findByClient_Id(idAuth()));
-        return "template/client/tickets-liste";
-    }
-
-    @GetMapping("developpeur/tickets")
-    public String ticketsDev(Model model) {
-
-        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(idAuth()));
-        return "template/dev/tickets-liste";
+    public String index(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> roles =  auth.getAuthorities();
+        if(roles.toString().contains("ADMIN"))
+            model.addAttribute("tickets", ticketService.findByDeveloppeurIsNull());
+        else if(roles.toString().contains("DEVELOPPEUR"))
+            model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(idAuth()));
+        else
+            model.addAttribute("tickets", ticketService.findByClient_Id(idAuth()));
+        return "template/tickets-liste";
     }
 
     @GetMapping("client/ticket/add")
     public String ticketsAdd(Model model) {
         model.addAttribute("ticket", new Ticket());
-        return "template/client/add-ticket";
+        return "template/add-ticket";
     }
 
     @PostMapping("client/ticket/add")
@@ -60,7 +51,7 @@ public class TicketControllerWeb {
         ticket.setStatus("en cours");
         ticketService.save(ticket);
         model.addAttribute("tickets", ticketService.findByClient_Id(idAuth()));
-        return "template/client/tickets-liste";
+        return "template/tickets-liste";
     }
 
     @GetMapping("/admin/tickets/affecter/{id}")
@@ -70,7 +61,7 @@ public class TicketControllerWeb {
         users.removeIf(user -> !user.getRoles().toString().contains("DEVELOPPEUR"));
         model.addAttribute("users", users);
         model.addAttribute("ticket", ticket);
-        return "template/admin/affectation-ticket";
+        return "template/affectation-ticket";
     }
 
     @GetMapping("/admin/tickets/choisir/{id}/{idT}")
@@ -80,7 +71,7 @@ public class TicketControllerWeb {
         ticket.setDeveloppeur(developpeur);
         ticketService.save(ticket);
         model.addAttribute("tickets", ticketService.findByDeveloppeurIsNull());
-        return "template/admin/tickets-liste";
+        return "template/tickets-liste";
     }
 
     @GetMapping("developpeur/tickets/status/{id}")
@@ -89,7 +80,7 @@ public class TicketControllerWeb {
         ticket.setStatus("resolu");
         ticketService.save(ticket);
         model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(idAuth()));
-        return "template/dev/tickets-liste";
+        return "template/tickets-liste";
     }
 
     private long idAuth(){
