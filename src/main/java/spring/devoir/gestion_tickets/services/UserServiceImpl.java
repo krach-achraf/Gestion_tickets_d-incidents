@@ -53,7 +53,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-/*    public int login(User user) {
+    public User getById(Long id) {
+        return userRepository.getById(id);
+    }
+
+    /*    public int login(User user) {
         User u = findByUsername(user.getUsername());
         if(u == null)
             return -1;

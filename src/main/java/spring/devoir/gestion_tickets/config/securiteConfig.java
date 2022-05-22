@@ -32,12 +32,12 @@ public class securiteConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().authorizeRequests()
+      /*  http.httpBasic().and().authorizeRequests()
                 .mvcMatchers("/", "/login", "/logout",
                         "/inscription").permitAll()
-                .mvcMatchers("developpeur/**").hasRole("DEVELOPPEUR")
+               // .mvcMatchers("developpeur/**").hasRole("DEVELOPPEUR")
                 .mvcMatchers("client/**").hasRole("CLIENT")
-                .mvcMatchers("admin/**").hasRole("ADMIN")
+              //  .mvcMatchers("admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
@@ -45,6 +45,6 @@ public class securiteConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .clearAuthentication(true).invalidateHttpSession(true)
                 .and()
-                .csrf().disable();
+                .csrf().disable();*/
     }
 }

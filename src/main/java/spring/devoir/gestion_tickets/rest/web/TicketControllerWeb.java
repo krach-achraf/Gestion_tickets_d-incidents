@@ -5,15 +5,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import spring.devoir.gestion_tickets.entities.Role;
 import spring.devoir.gestion_tickets.entities.Ticket;
+import spring.devoir.gestion_tickets.entities.User;
 import spring.devoir.gestion_tickets.services.TicketService;
 import spring.devoir.gestion_tickets.services.UserServiceImpl;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/tickets")
+@RequestMapping("/")
 public class TicketControllerWeb {
 
     @Autowired
@@ -27,17 +30,29 @@ public class TicketControllerWeb {
         return "layout/index";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("admin/tickets")
     public String ticketsNonAttribues(Model model) {
-        List<Ticket> tickets = ticketService.findByDeveloppeurIsNull();
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets", ticketService.findByDeveloppeurIsNull());
         return "template/ticket-non-attribue";
     }
 
-    @GetMapping("/admin/affecter/{id}")
+    @GetMapping("/admin/tickets/affecter/{id}")
     public String affecteTicket(@PathVariable long id, Model model) {
         Ticket ticket = ticketService.getById(id);
+        List<User> users = userService.findAll();
+        users.removeIf(user -> !user.getRoles().toString().contains("DEVELOPPEUR"));
+        model.addAttribute("users", users);
+        model.addAttribute("ticket", ticket);
+        return "template/affectation-ticket";
+    }
 
+    @GetMapping("/admin/tickets/choisir/{id}/{idT}")
+    public String saveAffectationTicket(@PathVariable long id,@PathVariable long idT, Model model) {
+        User developpeur = userService.getById(id);
+        Ticket ticket = ticketService.getById(idT);
+        ticket.setDeveloppeur(developpeur);
+        ticketService.save(ticket);
+        model.addAttribute("tickets", ticketService.findByDeveloppeurIsNull());
         return "template/ticket-non-attribue";
     }
 
