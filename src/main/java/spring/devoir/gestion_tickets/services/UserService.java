@@ -1,39 +1,14 @@
 package spring.devoir.gestion_tickets.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import spring.devoir.gestion_tickets.entities.User;
-import spring.devoir.gestion_tickets.repositories.UserRepository;
 
-@Service
-public class UserService {
+import java.util.List;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public void save(User user) throws Exception {
-        if(findByEmail(user.getEmail()) != null)
-            throw new Exception("Email deja existe");
-        else if(findByUsername(user.getUsername()) != null)
-            throw new Exception("Username deja existe");
-        else
-            userRepository.save(user);
-    }
-
-    public int login(User user) {
-        User u = findByEmail(user.getEmail());
-        if(u == null)
-            return -1;
-        if (!u.getPassword().equals(user.getPassword()))
-            return -2;
-        return 1;
-    }
+public interface UserService  extends UserDetailsService {
+    User findByUsername(String username);
+    User findByEmail(String email);
+    void save(User user) throws Exception;
+    void deleteById(Long id);
+    List<User> findAll();
 }

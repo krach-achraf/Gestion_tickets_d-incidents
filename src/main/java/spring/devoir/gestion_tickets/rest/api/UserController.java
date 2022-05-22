@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.devoir.gestion_tickets.entities.User;
-import spring.devoir.gestion_tickets.services.UserService;
+import spring.devoir.gestion_tickets.services.UserServiceImpl;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostMapping
     public void save(@RequestBody User user) throws Exception {

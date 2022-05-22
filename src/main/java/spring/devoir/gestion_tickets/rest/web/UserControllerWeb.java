@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import spring.devoir.gestion_tickets.entities.User;
-import spring.devoir.gestion_tickets.services.UserService;
+import spring.devoir.gestion_tickets.services.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -19,7 +19,7 @@ import javax.validation.Valid;
 public class UserControllerWeb {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @PostMapping("/register")
     public void register(User user) throws Exception {
@@ -33,7 +33,7 @@ public class UserControllerWeb {
         return "users/login";
     }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public String login(@ModelAttribute("user") @Valid User user, BindingResult result){
         int res = userService.login(user);
         if(res == -1){
@@ -47,7 +47,7 @@ public class UserControllerWeb {
             return "users/login";
         }
         return "redirect:/tickets";
-    }
+    }*/
 
 
 }

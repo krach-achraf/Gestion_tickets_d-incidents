@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import spring.devoir.gestion_tickets.entities.Ticket;
 import spring.devoir.gestion_tickets.services.TicketService;
-import spring.devoir.gestion_tickets.services.UserService;
+import spring.devoir.gestion_tickets.services.UserServiceImpl;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class TicketControllerWeb {
     private TicketService ticketService;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @GetMapping
     public String index(){

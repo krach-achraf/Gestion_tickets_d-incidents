@@ -30,6 +30,14 @@ public class TicketService {
         return ticketRepository.findByClient_Id(id);
     }
 
+    public List<Ticket> findAll() {
+        return ticketRepository.findAll();
+    }
+
+    public void deleteById(Long id) {
+        ticketRepository.deleteById(id);
+    }
+
     public void save(Ticket ticket) {
         ticketRepository.save(ticket);
     }
