@@ -6,7 +6,6 @@ import spring.devoir.gestion_tickets.entities.Ticket;
 import spring.devoir.gestion_tickets.repositories.TicketRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TicketService {

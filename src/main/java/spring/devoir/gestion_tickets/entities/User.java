@@ -1,8 +1,6 @@
 package spring.devoir.gestion_tickets.entities;
 
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

@@ -26,6 +26,7 @@ public class TicketControllerWeb {
     @Autowired
     private UserServiceImpl userService;
 
+    // Liste des tickets
     @GetMapping
     public String index(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -39,12 +40,15 @@ public class TicketControllerWeb {
         return "template/tickets-liste";
     }
 
+    //Espace CLIENT
+    //Formulaire d'ajout d'un ticket
     @GetMapping("client/ticket/add")
     public String ticketsAdd(Model model) {
         model.addAttribute("ticket", new Ticket());
         return "template/add-ticket";
     }
 
+    //Sauvegarder l'ajout d'un ticket
     @PostMapping("client/ticket/add")
     public String ticketsSave(@ModelAttribute Ticket ticket, Model model, BindingResult result) {
         ticket.setClient(userService.getById(idAuth()));
@@ -54,6 +58,8 @@ public class TicketControllerWeb {
         return "template/tickets-liste";
     }
 
+    //Espace ADMIN
+    //Affecter un ticket a un client (affichage)
     @GetMapping("/admin/tickets/affecter/{id}")
     public String affecteTicket(@PathVariable long id, Model model) {
         Ticket ticket = ticketService.getById(id);
@@ -64,6 +70,7 @@ public class TicketControllerWeb {
         return "template/affectation-ticket";
     }
 
+    //Affecter un ticket a un client (suavegarder)
     @GetMapping("/admin/tickets/choisir/{id}/{idT}")
     public String saveAffectationTicket(@PathVariable long id,@PathVariable long idT, Model model) {
         User developpeur = userService.getById(id);
@@ -74,6 +81,8 @@ public class TicketControllerWeb {
         return "template/tickets-liste";
     }
 
+    //Espace DEVELOPPEUR
+    //changer le status d'un ticket
     @GetMapping("developpeur/tickets/status/{id}")
     public String changeStatus(@PathVariable long id, Model model){
         Ticket ticket = ticketService.getById(id);
@@ -83,6 +92,7 @@ public class TicketControllerWeb {
         return "template/tickets-liste";
     }
 
+    //Recuperer id du user connecte
     private long idAuth(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName());
