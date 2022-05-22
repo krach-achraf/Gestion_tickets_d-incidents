@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Tickets</title>
@@ -9,11 +10,11 @@
 </head>
 <body>
 
-<form class="form-signin" method="post"  th:action="@{/users/login}" >
+<form class="form-signin" method="post"  th:action="@{/login}" >
 
-   <!-- <ul th:if="${#fields.hasErrors('*')}"  class="alert alert-danger" role="alert">
-        <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
-    </ul>-->
+    <div th:if="${param.error}" >
+        <div class="alert alert-danger"> username ou password erroné</div>
+    </div>
     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
     <label for="inputUsername" class="sr-only">Username</label>

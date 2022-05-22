@@ -57,23 +57,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.getById(id);
     }
 
-    /*    public int login(User user) {
-        User u = findByUsername(user.getUsername());
-        if(u == null)
-            return -1;
-        if (!u.getPassword().equals(user.getPassword()))
-            return -2;
-        return 1;
-    }*/
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws
-            UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw new UsernameNotFoundException("Nom d'utilisateur ou mot de passe erroné");
-        for (Role r : user.getRoles())
-            System.out.println("Role:" + r.getNom());
         return new
                 org.springframework.security.core.userdetails.User(
                 user.getUsername(),

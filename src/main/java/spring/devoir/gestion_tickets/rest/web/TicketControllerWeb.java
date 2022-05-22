@@ -1,6 +1,8 @@
 package spring.devoir.gestion_tickets.rest.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,13 +37,14 @@ public class TicketControllerWeb {
 
     @GetMapping("client/tickets")
     public String ticketsClient(Model model) {
-        model.addAttribute("tickets", ticketService.findByClient_Id(2L));
+        model.addAttribute("tickets", ticketService.findByClient_Id(idAuth()));
         return "template/client/tickets-liste";
     }
 
     @GetMapping("developpeur/tickets")
     public String ticketsDev(Model model) {
-        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(4L));
+
+        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(idAuth()));
         return "template/dev/tickets-liste";
     }
 
@@ -53,10 +56,10 @@ public class TicketControllerWeb {
 
     @PostMapping("client/ticket/add")
     public String ticketsSave(@ModelAttribute Ticket ticket, Model model, BindingResult result) {
-        ticket.setClient(userService.getById(2L));
+        ticket.setClient(userService.getById(idAuth()));
         ticket.setStatus("en cours");
         ticketService.save(ticket);
-        model.addAttribute("tickets", ticketService.findByClient_Id(2L));
+        model.addAttribute("tickets", ticketService.findByClient_Id(idAuth()));
         return "template/client/tickets-liste";
     }
 
@@ -85,7 +88,13 @@ public class TicketControllerWeb {
         Ticket ticket = ticketService.getById(id);
         ticket.setStatus("resolu");
         ticketService.save(ticket);
-        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(4L));
+        model.addAttribute("tickets", ticketService.findByDeveloppeur_Id(idAuth()));
         return "template/dev/tickets-liste";
+    }
+
+    private long idAuth(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUsername(auth.getName());
+        return user.getId();
     }
 }
