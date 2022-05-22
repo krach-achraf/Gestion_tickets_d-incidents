@@ -20,12 +20,12 @@ public class TicketController {
     }
 
     @GetMapping("/developpeur/{id}")
-    public List<Ticket> findByDeveloppeur_Id(@PathVariable int id) {
+    public List<Ticket> findByDeveloppeur_Id(@PathVariable Long id) {
         return ticketService.findByDeveloppeur_Id(id);
     }
 
     @GetMapping("/clients/{id}")
-    public List<Ticket> findByClient_Id(@PathVariable int id) {
+    public List<Ticket> findByClient_Id(@PathVariable Long id) {
         return ticketService.findByClient_Id(id);
     }
 

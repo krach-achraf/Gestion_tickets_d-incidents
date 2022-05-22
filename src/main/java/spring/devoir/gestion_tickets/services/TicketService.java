@@ -22,11 +22,11 @@ public class TicketService {
         return ticketRepository.findByDeveloppeurIsNull();
     }
 
-    public List<Ticket> findByDeveloppeur_Id(int id) {
+    public List<Ticket> findByDeveloppeur_Id(Long id) {
         return ticketRepository.findByDeveloppeur_Id(id);
     }
 
-    public List<Ticket> findByClient_Id(int id) {
+    public List<Ticket> findByClient_Id(Long id) {
         return ticketRepository.findByClient_Id(id);
     }
 

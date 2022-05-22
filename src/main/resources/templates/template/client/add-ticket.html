@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/index}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/style/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/style/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<main layout:fragment="contenu">
+    <div class="card">
+        <div class="card-header">Ajouter un ticket</div>
+        <div class="card-body row">
+            <div class="col-3"></div>
+            <form class="form-signin col-6" method="post" th:object="${ticket}"  th:action="@{/client/ticket/add}" >
+
+                <!-- <ul th:if="${#fields.hasErrors('*')}"  class="alert alert-danger" role="alert">
+                     <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+                 </ul>-->
+
+                <label for="inputDescription" class="sr-only">Description</label>
+                <input type="text" id="inputDescription" name="description"  class="form-control mb-3" placeholder="Description" required
+                       autofocus th:field="*{description}">
+
+                <label for="inputEnvir" class="sr-only">Envirennement</label>
+                <input type="text" id="inputEnvir" name="envirennement"  class="form-control mb-3" placeholder="Envirennement" required
+                       autofocus th:field="*{envirenemment}">
+
+                <label for="inputLogiciel" class="sr-only">Logiciel</label>
+                <input type="text" id="inputLogiciel" name="Logiciel"  class="form-control mb-3" placeholder="Logiciel" required
+                       autofocus th:field="*{logiciel}">
+
+                <label for="inputUrgnece" class="sr-only">Urgence</label>
+                <select id="inputUrgnece" class="form-control mb-3" name="urgence" th:field="*{urgence}">
+                    <option value="critique">Critique</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="normal">Normal</option>
+                    <option value="non urgent">Non urgent</option>
+                </select>
+
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <button class="btn btn-primary btn-block" type="submit">Envoyer</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
+</html>
